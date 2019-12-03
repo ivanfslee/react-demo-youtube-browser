@@ -7,6 +7,12 @@ import VideoDetail from './VideoDetail';
 class App extends React.Component {
     state = { videos: [], selectedVideo: null };
 
+    componentDidMount() {
+        //after first render, componentDidMount will run 
+        //onTermSubmit will run and render buildings as first search query
+        this.onTermSubmit('buildings');
+    }
+
     onTermSubmit = async (term) => {
         console.log(term);
         const response = await youtube.get('/search', {
@@ -16,14 +22,16 @@ class App extends React.Component {
         });
 
         //response.data.items is an array of videos (obj)
-        this.setState({ videos: response.data.items })
+        this.setState({ 
+            videos: response.data.items,
+            selectedVideo: response.data.items[0]
+         })
     };
 
     onVideoSelect = video => {
         //console.log('from the App compo, ', video)
         this.setState({ selectedVideo: video});
     };
-
 
     render() {
         return (
