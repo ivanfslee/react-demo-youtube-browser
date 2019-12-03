@@ -29,12 +29,20 @@ class App extends React.Component {
         return (
             <div className="ui container">
                 <SearchBar onFormSubmit={this.onTermSubmit} />
-                <VideoDetail video={this.state.selectedVideo} />
-                {/*videos will contain array of videos to be rendered on-screen */}
-                <VideoList whenVideoSelected={this.onVideoSelect} videos={this.state.videos} />
-                {/* <br />
-                Found: {this.state.videos.length} videos
-                */}
+                <div className="ui grid">
+                    <div className="ui row">
+                        <div className="eleven wide column">
+                            <VideoDetail video={this.state.selectedVideo} />
+                            {/*videos will contain array of videos to be rendered on-screen */}
+                        </div>
+                        <div className="five wide column">
+                            <VideoList whenVideoSelected={this.onVideoSelect} videos={this.state.videos} />
+                            {/* <br />
+                            Found: {this.state.videos.length} videos
+                            */}
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
