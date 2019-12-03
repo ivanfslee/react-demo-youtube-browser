@@ -2,9 +2,10 @@ import React from 'react';
 import SearchBar from './SearchBar';
 import youtube from '../apis/youtube';
 import VideoList from './VideoList';
+import VideoDetail from './VideoDetail';
 
 class App extends React.Component {
-    state = { videos: [] };
+    state = { videos: [], selectedVideo: null };
 
     onTermSubmit = async (term) => {
         console.log(term);
@@ -18,14 +19,19 @@ class App extends React.Component {
         this.setState({ videos: response.data.items })
     };
 
+    onVideoSelect = video => {
+        //console.log('from the App compo, ', video)
+        this.setState({ selectedVideo: video});
+    };
 
 
     render() {
         return (
             <div className="ui container">
                 <SearchBar onFormSubmit={this.onTermSubmit} />
+                <VideoDetail video={this.state.selectedVideo} />
                 {/*videos will contain array of videos to be rendered on-screen */}
-                <VideoList videos={this.state.videos} />
+                <VideoList whenVideoSelected={this.onVideoSelect} videos={this.state.videos} />
                 {/* <br />
                 Found: {this.state.videos.length} videos
                 */}
